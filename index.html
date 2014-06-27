@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link href="css/main.css" rel="stylesheet" type="text/css">
+        <script src="js/jquery-2.1.1.js"></script>
+        <script src="js/cell.js"></script>
+        <script src="js/position.js"></script>
+        <script src="js/gameController.js"></script>
+        <script type="text/javascript">
+
+
+            //==========================================//
+            /* Do Some Initializtion When Our Doc Is ready
+             */
+            var controller;
+            $(document).ready(function(){
+                controller=new GameController();
+                controller.initializeBoard();
+   
+                $('#replay').click(function(){
+                    controller.initializeBoard();
+		
+                    //=== clear the board
+                    for(var i=1;i<=16;i++){
+                        $('#c'+i).empty();
+                    }
+                    $('#c1').append('<div class="tile num2">2</div>');
+                    $('#c7').append('<div class="tile num4">4</div>');
+                    $('#score').text('Score : 0');
+                });
+   
+                $('#circle').click(function(){
+                    $('.tile').css("border-radius","50px");
+                    $('.cell').css("border-radius","50px");
+                    controller.border="50px";
+                });
+   
+                $('#square').click(function(){
+                    $('.tile').css("border-radius","3px");
+                    $('.cell').css("border-radius","3px");
+                    controller.border="10px";
+                });
+   
+            });
+            //==========================================//
+            document.onkeydown = function(event) {
+                event = event || window.event;
+                if(controller.movedCells==0){
+                    switch (event.keyCode) {
+                        case 37: //left
+                            controller.moveCells(1);
+                            event.preventDefault();
+                            break;
+                        case 38: //up
+                            controller.moveCells(3);
+                            event.preventDefault();
+                            break;
+                        case 39: //right
+                            controller.moveCells(2);
+                            event.preventDefault();
+                            break;
+                        case 40: //down
+                            controller.moveCells(4);
+                            event.preventDefault();
+                            break;
+                    }
+                }
+	
+            };
+        </script>
+
+    </head>
+    <body>
+        <table width="100%" border="0">
+            <tr>
+                <td align="center" colspan="2">
+                    <input type="image" src="css/2048.png" alt="2048" width="450">
+                </td>
+            </tr>
+
+            <tr>			
+                <td align="right" class="bubble score">
+                    <label id="score">Score : 0</label>
+                </td>
+                <td width="70%" align="center" style="vertical-align:top" rowspan="3">
+                    <div align="right">
+                        <input type="image" src="css/replay.png" alt="Replay" height="42" width="42" id="replay">
+                    </div>
+                    <div class="grid">
+                        <!--======= First Row=========-->
+                        <div class="row">
+                            <div class="cell" id="c1">
+                                <div class="tile box num2">2</div>
+                            </div>
+                            <div class="cell" id="c2"></div>
+                            <div class="cell" id="c3"></div>
+                            <div class="cell last-cell" id="c4"></div>
+                        </div>
+                        <!--======= First Row=========-->
+
+                        <!--======= Second Row=========-->
+                        <div class="row">
+                            <div class="cell" id="c5"></div>
+                            <div class="cell" id="c6"></div>
+                            <div class="cell" id="c7">
+                                <div class="tile box num4">4</div>
+                            </div>
+                            <div class="cell last-cell" id="c8"></div>
+                        </div>
+                        <!--======= Second Row=========-->
+
+                        <!--======= Third Row=========-->
+                        <div class="row">
+                            <div class="cell" id="c9"></div>
+                            <div class="cell" id="c10"></div>
+                            <div class="cell" id="c11"></div>
+                            <div class="cell last-cell" id="c12"></div>
+                        </div>
+                        <!--======= Third Row=========-->
+
+                        <!--======= Fourth Row=========-->
+                        <div class="row">
+                            <div class="cell" id="c13"></div>
+                            <div class="cell" id="c14"></div>
+                            <div class="cell" id="c15"></div>
+                            <div class="cell last-cell" id="c16"></div>
+                        </div>
+                        <!--======= Fourth Row=========-->
+
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="bubble">
+                    <h4>Choose Game Style</h4>
+                    <input type="image" src="css/circle.png" alt="Circle" height="50" width="50" id="circle">
+                    &nbsp;&nbsp;&nbsp;
+                    <input type="image" src="css/square.png" alt="Square" height="50" width="50" id="square">
+                </td>
+
+
+
+
+            </tr>
+            <tr>
+                <td class="bubble">
+                    <h4>HOW TO PLAY</h4>                     
+                    <p style="font-size: 18px;"> Use your arrow keys to move the tiles.   <br/>
+                        When two tiles with the same number touch, they merge into one!
+                    </p>
+                </td>
+            </tr>
+        </table>
+        <hr/>
+		<center>Copyright &copy; 2014 by Yameni Ali.
+               All Rights Reserved.
+</center>
+    </body>
+	
+
+</html>
